@@ -8,6 +8,7 @@ import React from 'react';
 
 function Create() {
     const navigate = useNavigate();
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [name, setName] = useState("");
     const [reps, setReps] = useState("");
     const [weight, setWeight] = useState("");
@@ -16,7 +17,7 @@ function Create() {
 
     const onCreate = async() => {
         const response = await fetch(
-            `/exercises/`,
+            `${backendUrl}/exercises/`,
             {method: 'POST',  headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, reps: Number(reps), weight: Number(weight), unit, date }),}
         );
         if (response.status === 201) {
