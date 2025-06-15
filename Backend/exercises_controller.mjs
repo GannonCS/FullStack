@@ -2,6 +2,7 @@
  * Gannon Strand
  */
 import 'dotenv/config';
+import cors from 'cors';
 import express from 'express';
 import asyncHandler from 'express-async-handler';
 import * as exercises from './exercises_model.mjs';
@@ -9,6 +10,7 @@ import * as exercises from './exercises_model.mjs';
 const PORT = process.env.PORT;
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.listen(PORT, async () => {
