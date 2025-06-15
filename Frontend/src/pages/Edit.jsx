@@ -7,6 +7,7 @@ import Footer from '../components/Footer'
 import React from 'react';
 
 function Edit({exerciseToEdit}) {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const navigate = useNavigate();
     const [name, setName] = useState(exerciseToEdit.name);
     const [reps, setReps] = useState(exerciseToEdit.reps);
@@ -16,7 +17,7 @@ function Edit({exerciseToEdit}) {
 
     const onEdit = async() => {
         const response = await fetch(
-            `/exercises/${exerciseToEdit._id}`,
+            `${backendUrl}/exercises/${exerciseToEdit._id}`,
             {method: 'PUT',  headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, reps: Number(reps), weight: Number(weight), unit, date }),}
         );
         if (response.status === 200) {
