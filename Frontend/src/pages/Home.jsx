@@ -10,9 +10,10 @@ import React from 'react';
 function Home({setExerciseToEdit}) {
     const navigate = useNavigate();
     const [exercises, setExercise] = useState([]);
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
     const loadExercises = async() => {
-      const response = await fetch('/exercises')
+      const response = await fetch(`${backendUrl}/exercises`)
       const data = await response.json();
       setExercise(data)
     }
