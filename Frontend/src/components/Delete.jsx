@@ -5,14 +5,15 @@ import '../App.css'
 
 function Delete({exerciseId, setExercise}) {
     const navigate = useNavigate();
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const onDelete = async() => {
         const response = await fetch(
-            `/exercises/${exerciseId}`,
+            `${backendUrl}/exercises/${exerciseId}`,
             {method: 'DELETE'}
         );
         if (response.status === 204) {
             alert(`Successfully deleted the exercise with _id = ${exerciseId}`);
-            const response2 = await fetch('/exercises');
+            const response2 = await fetch(`${backendUrl}/exercises`);
             const updatedData = await response2.json();
             setExercise(updatedData);
         }
