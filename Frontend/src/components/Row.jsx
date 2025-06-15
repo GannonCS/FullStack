@@ -1,4 +1,5 @@
 import Delete from './Delete'
+import React from 'react';
 import { FaEdit } from "react-icons/fa";
 
 function Row({exercise, setExercise, onEdit}) {
