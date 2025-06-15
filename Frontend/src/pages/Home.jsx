@@ -5,6 +5,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import '../App.css'
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 function Home({setExerciseToEdit}) {
     const navigate = useNavigate();
