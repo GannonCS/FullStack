@@ -1,0 +1,83 @@
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import Navigation from '../components/Navigation';
+import '../App.css'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+
+function Edit({exerciseToEdit}) {
+    const navigate = useNavigate();
+    const [name, setName] = useState(exerciseToEdit.name);
+    const [reps, setReps] = useState(exerciseToEdit.reps);
+    const [weight, setWeight] = useState(exerciseToEdit.weight);
+    const [unit, setUnit] = useState(exerciseToEdit.unit);
+    const [date, setDate] = useState(exerciseToEdit.date);
+
+    const onEdit = async() => {
+        const response = await fetch(
+            `/exercises/${exerciseToEdit._id}`,
+            {method: 'PUT',  headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, reps: Number(reps), weight: Number(weight), unit, date }),}
+        );
+        if (response.status === 200) {
+            alert(`Successfully edited the exercise with _id = ${exerciseToEdit._id}`);  
+        }
+        else {
+            alert(`Failed to edit exercise with _id = ${exerciseToEdit._id}, status code = ${response.status}`);
+        }
+        navigate("/");
+    }
+    return (
+        <div>
+            <Header />
+            <Navigation />
+            <h2>Edit Exercise!</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Reps</th>
+                    <th>Weight</th>
+                    <th>Unit</th>
+                    <th>Date</th>
+                    <th>Edit</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" value={name} onChange={e => setName(e.target.value)} />
+                        </td>
+
+                        <td>
+                            <input type="number" value={reps} onChange={e => setReps(e.target.value)} />
+                        </td>
+
+                        <td>
+                            <input type="number" value={weight} onChange={e => setWeight(e.target.value)} />
+                        </td>
+
+                        <td>
+                            <select value={unit} onChange={e => setUnit(e.target.value)}>
+                            <option value="lbs">lbs</option>
+                            <option value="kgs">kgs</option>
+                            </select>
+                        </td>
+
+                        <td>
+                            <input type="text" value={date} onChange={e => setDate(e.target.value)} />
+                        </td>
+
+                        <td>
+                            <button onClick={onEdit}>
+                                Save
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <Footer />
+        </div>
+    )
+}
+
+export default Edit;
